@@ -56,6 +56,25 @@
         }).join('');
     }
 
+    // --- Extract domain from URL for logo lookup ---
+    function getDomain(url) {
+        if (!url) return '';
+        try {
+            var a = document.createElement('a');
+            a.href = url;
+            return a.hostname.replace(/^www\./, '');
+        } catch (e) {
+            return '';
+        }
+    }
+
+    // --- Provider logo from Clearbit ---
+    function logoHTML(url, name) {
+        var domain = getDomain(url);
+        if (!domain) return '';
+        return '<img class="provider-logo" src="https://logo.clearbit.com/' + domain + '" alt="' + esc(name) + '" onerror="this.style.display=\'none\'">';
+    }
+
     function labelColour(label) {
         return CONFIG.LABEL_COLOURS[label] || '#9ca3af';
     }
@@ -128,17 +147,14 @@
 
         populateMarketFilter(providers);
 
-        var tierFilter = document.getElementById('filter-tier');
         var labelFilter = document.getElementById('filter-label');
         var marketFilter = document.getElementById('filter-market');
 
         function draw() {
-            var tier = tierFilter ? tierFilter.value : '';
             var label = labelFilter ? labelFilter.value : '';
             var market = marketFilter ? marketFilter.value : '';
 
             var filtered = providers.filter(function (p) {
-                if (tier && p.fields['Tier'] !== tier) return false;
                 if (label && p.fields['Readiness label'] !== label) return false;
                 if (!matchesMarket(p, market)) return false;
                 return true;
@@ -153,7 +169,6 @@
                 var f = p.fields;
                 var score = f['Weighted score'] || 0;
                 var pct = (score / 5 * 100).toFixed(0);
-                var t = (f['Tier'] || '?').toUpperCase();
                 var rl = f['Readiness label'] || 'Unclear';
                 var colour = labelColour(rl);
                 var name = f['Provider name'] || 'Unknown';
@@ -161,12 +176,13 @@
                 var markets = getMarkets(f);
                 var access = f['Access model'] || '';
                 var ttfc = f['Time to first API call'] || '';
+                var pUrl = f['Primary URL'] || '';
 
                 return '<a href="provider.html?id=' + p.id + '" class="provider-card">' +
                     '<div class="card-rank">' + (i + 1) + '</div>' +
                     '<div class="card-body">' +
                         '<div class="card-top">' +
-                            '<span class="tier-badge tier-' + t.toLowerCase() + '">' + t + '</span>' +
+                            '<span class="provider-logo-wrap">' + logoHTML(pUrl, name) + '</span>' +
                             '<div>' +
                                 '<div class="card-name">' + esc(name) + '</div>' +
                                 '<div class="card-role">' + esc(role) + '</div>' +
@@ -191,7 +207,6 @@
             }).join('');
         }
 
-        if (tierFilter) tierFilter.addEventListener('change', draw);
         if (labelFilter) labelFilter.addEventListener('change', draw);
         if (marketFilter) marketFilter.addEventListener('change', draw);
         draw();
@@ -205,7 +220,6 @@
         var f = provider.fields;
         var score = f['Weighted score'] || 0;
         var pct = (score / 5 * 100).toFixed(0);
-        var tier = (f['Tier'] || '?').toUpperCase();
         var rl = f['Readiness label'] || 'Unclear';
         var colour = labelColour(rl);
 
@@ -236,7 +250,7 @@
         container.innerHTML =
         '<div class="profile-header">' +
             '<div class="card-top">' +
-                '<span class="tier-badge tier-' + tier.toLowerCase() + '">' + tier + '</span>' +
+                '<span class="provider-logo-wrap">' + logoHTML(url, f['Provider name'] || '') + '</span>' +
                 '<div>' +
                     '<div class="card-name" style="font-size:1.5rem">' + esc(f['Provider name'] || '') + '</div>' +
                     '<div class="card-role">' + esc(f['Role label'] || f['Provider type'] || '') + '</div>' +
