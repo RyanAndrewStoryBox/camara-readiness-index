@@ -25,6 +25,35 @@
         return allRecords;
     }
 
+    // --- Country to flag emoji mapping ---
+    var COUNTRY_FLAGS = {
+        'UK': '🇬🇧', 'Germany': '🇩🇪', 'Spain': '🇪🇸',
+        'Italy': '🇮🇹', 'Greece': '🇬🇷', 'Ireland': '🇮🇪',
+        'Netherlands': '🇳🇱', 'Portugal': '🇵🇹', 'Romania': '🇷🇴',
+        'France': '🇫🇷', 'Sweden': '🇸🇪', 'Finland': '🇫🇮',
+        'Norway': '🇳🇴', 'Denmark': '🇩🇰', 'Estonia': '🇪🇪',
+        'Lithuania': '🇱🇹', 'Latvia': '🇱🇻', 'Australia': '🇦🇺',
+        'Brazil': '🇧🇷', 'Croatia': '🇭🇷', 'India': '🇮🇳',
+        'Argentina': '🇦🇷', 'Singapore': '🇸🇬', 'Thailand': '🇹🇭',
+        'Indonesia': '🇮🇩', 'Malaysia': '🇲🇾', 'Taiwan': '🇹🇼',
+        'Canada': '🇨🇦', 'Japan': '🇯🇵', 'USA': '🇺🇸',
+        'Belgium': '🇧🇪', 'Austria': '🇦🇹', 'Switzerland': '🇨🇭',
+        'Poland': '🇵🇱', 'Czech Republic': '🇨🇿', 'Hungary': '🇭🇺',
+        'South Africa': '🇿🇦', 'Qatar': '🇶🇦', 'Albania': '🇦🇱',
+        'Global': '🌐'
+    };
+
+    function flagsHTML(marketsStr) {
+        if (!marketsStr) return '';
+        var markets = marketsStr.split(',');
+        return markets.map(function (m) {
+            var name = m.trim();
+            var flag = COUNTRY_FLAGS[name] || name;
+            if (flag === name) return '<span class="flag-wrap" title="' + esc(name) + '">' + esc(name) + '</span>';
+            return '<span class="flag-wrap"><span class="flag-tip">' + esc(name) + '</span>' + flag + '</span>';
+        }).join('');
+    }
+
     function labelColour(label) {
         return CONFIG.LABEL_COLOURS[label] || '#9ca3af';
     }
@@ -148,7 +177,7 @@
                             '<span class="readiness-label" style="color:' + colour + '">' + esc(rl) + '</span>' +
                         '</div>' +
                         '<div class="card-meta">' +
-                            (markets ? '<span>Markets: ' + esc(markets) + '</span>' : '') +
+                            (markets ? '<span>' + flagsHTML(markets) + '</span>' : '') +
                             (access ? '<span>Access: ' + esc(access) + '</span>' : '') +
                             (ttfc ? '<span>First call: ' + esc(ttfc) + '</span>' : '') +
                         '</div>' +
@@ -213,7 +242,7 @@
             '</div>' +
             '<div class="profile-meta">' +
                 (f['Headquarters'] ? '<span>Headquarters: ' + esc(f['Headquarters']) + '</span><br>' : '') +
-                (markets ? '<span>Markets: ' + esc(markets) + '</span><br>' : '') +
+                (markets ? '<span>Markets: ' + flagsHTML(markets) + '</span><br>' : '') +
                 (url ? '<span>Portal: <a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(urlDisplay) + '</a></span><br>' : '') +
                 (f['Access model'] ? '<span>Access model: ' + esc(f['Access model']) + '</span>' : '') +
             '</div>' +
