@@ -83,17 +83,16 @@ body {
     overflow: hidden;
     border-bottom: 3px solid var(--accent);
 }
-.hero::before {
-    content: '';
+#hero-canvas {
     position: absolute;
-    top: -40%; right: -15%;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(14,165,233,0.1) 0%, transparent 65%);
+    inset: 0;
+    z-index: 1;
     pointer-events: none;
 }
-.hero h1 { font-family: 'D-DIN', 'Inter', sans-serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.9rem; position: relative; }
-.hero-sub { font-size: 1.15rem; color: #e2e8f0; max-width: 600px; margin-bottom: 0.85rem; line-height: 1.5; position: relative; }
-.hero-body { font-size: 0.92rem; color: #94a3b8; max-width: 600px; line-height: 1.75; position: relative; }
+.hero .container { position: relative; z-index: 2; }
+.hero h1 { font-family: 'D-DIN', 'Inter', sans-serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.9rem; }
+.hero-sub { font-size: 1.15rem; color: #e2e8f0; max-width: 600px; margin-bottom: 0.85rem; line-height: 1.5; }
+.hero-body { font-size: 0.92rem; color: #94a3b8; max-width: 600px; line-height: 1.75; }
 
 /* --- Leaderboard section --- */
 .leaderboard-section { padding: 2.5rem 0; }
