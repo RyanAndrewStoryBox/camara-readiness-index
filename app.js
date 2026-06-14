@@ -25,31 +25,40 @@
         return allRecords;
     }
 
-    // --- Country to flag emoji mapping ---
-    var COUNTRY_FLAGS = {
-        'UK': '🇬🇧', 'Germany': '🇩🇪', 'Spain': '🇪🇸',
-        'Italy': '🇮🇹', 'Greece': '🇬🇷', 'Ireland': '🇮🇪',
-        'Netherlands': '🇳🇱', 'Portugal': '🇵🇹', 'Romania': '🇷🇴',
-        'France': '🇫🇷', 'Sweden': '🇸🇪', 'Finland': '🇫🇮',
-        'Norway': '🇳🇴', 'Denmark': '🇩🇰', 'Estonia': '🇪🇪',
-        'Lithuania': '🇱🇹', 'Latvia': '🇱🇻', 'Australia': '🇦🇺',
-        'Brazil': '🇧🇷', 'Croatia': '🇭🇷', 'India': '🇮🇳',
-        'Argentina': '🇦🇷', 'Singapore': '🇸🇬', 'Thailand': '🇹🇭',
-        'Indonesia': '🇮🇩', 'Malaysia': '🇲🇾', 'Taiwan': '🇹🇼',
-        'Canada': '🇨🇦', 'Japan': '🇯🇵', 'USA': '🇺🇸',
-        'Belgium': '🇧🇪', 'Austria': '🇦🇹', 'Switzerland': '🇨🇭',
-        'Poland': '🇵🇱', 'Czech Republic': '🇨🇿', 'Hungary': '🇭🇺',
-        'South Africa': '🇿🇦', 'Qatar': '🇶🇦', 'Albania': '🇦🇱',
-        'Global': '🌐'
+    // --- Country to ISO 2-letter code mapping ---
+    var COUNTRY_ISO = {
+        'UK': 'GB', 'Germany': 'DE', 'Spain': 'ES',
+        'Italy': 'IT', 'Greece': 'GR', 'Ireland': 'IE',
+        'Netherlands': 'NL', 'Portugal': 'PT', 'Romania': 'RO',
+        'France': 'FR', 'Sweden': 'SE', 'Finland': 'FI',
+        'Norway': 'NO', 'Denmark': 'DK', 'Estonia': 'EE',
+        'Lithuania': 'LT', 'Latvia': 'LV', 'Australia': 'AU',
+        'Brazil': 'BR', 'Croatia': 'HR', 'India': 'IN',
+        'Argentina': 'AR', 'Singapore': 'SG', 'Thailand': 'TH',
+        'Indonesia': 'ID', 'Malaysia': 'MY', 'Taiwan': 'TW',
+        'Canada': 'CA', 'Japan': 'JP', 'USA': 'US',
+        'Belgium': 'BE', 'Austria': 'AT', 'Switzerland': 'CH',
+        'Poland': 'PL', 'Czech Republic': 'CZ', 'Hungary': 'HU',
+        'South Africa': 'ZA', 'Qatar': 'QA', 'Albania': 'AL',
+        'Global': 'GLOBAL'
     };
+
+    // Build flag emoji from ISO code using Unicode regional indicator symbols
+    function isoToFlag(iso) {
+        if (iso === 'GLOBAL') return '🌐';
+        return iso.split('').map(function (c) {
+            return String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65);
+        }).join('');
+    }
 
     function flagsHTML(marketsStr) {
         if (!marketsStr) return '';
         var markets = marketsStr.split(',');
         return markets.map(function (m) {
             var name = m.trim();
-            var flag = COUNTRY_FLAGS[name] || name;
-            if (flag === name) return '<span class="flag-wrap" title="' + esc(name) + '">' + esc(name) + '</span>';
+            var iso = COUNTRY_ISO[name];
+            if (!iso) return '<span class="flag-wrap" title="' + esc(name) + '">' + esc(name) + '</span>';
+            var flag = isoToFlag(iso);
             return '<span class="flag-wrap"><span class="flag-tip">' + esc(name) + '</span>' + flag + '</span>';
         }).join('');
     }
