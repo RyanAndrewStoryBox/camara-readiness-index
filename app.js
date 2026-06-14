@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    const API_URL = 'https://api.airtable.com/v0/' + CONFIG.AIRTABLE_BASE_ID;
+    var API_URL = 'https://api.airtable.com/v0/' + CONFIG.AIRTABLE_BASE_ID;
 
     function headers() {
         return { Authorization: 'Bearer ' + CONFIG.AIRTABLE_API_TOKEN };
@@ -25,32 +25,25 @@
         return allRecords;
     }
 
-    // --- Country to ISO 2-letter code mapping ---
+    // --- Country name to ISO 2-letter code ---
     var COUNTRY_ISO = {
-        'UK': 'GB', 'Germany': 'DE', 'Spain': 'ES',
-        'Italy': 'IT', 'Greece': 'GR', 'Ireland': 'IE',
-        'Netherlands': 'NL', 'Portugal': 'PT', 'Romania': 'RO',
-        'France': 'FR', 'Sweden': 'SE', 'Finland': 'FI',
-        'Norway': 'NO', 'Denmark': 'DK', 'Estonia': 'EE',
-        'Lithuania': 'LT', 'Latvia': 'LV', 'Australia': 'AU',
-        'Brazil': 'BR', 'Croatia': 'HR', 'India': 'IN',
-        'Argentina': 'AR', 'Singapore': 'SG', 'Thailand': 'TH',
-        'Indonesia': 'ID', 'Malaysia': 'MY', 'Taiwan': 'TW',
-        'Canada': 'CA', 'Japan': 'JP', 'USA': 'US',
-        'Belgium': 'BE', 'Austria': 'AT', 'Switzerland': 'CH',
-        'Poland': 'PL', 'Czech Republic': 'CZ', 'Hungary': 'HU',
-        'South Africa': 'ZA', 'Qatar': 'QA', 'Albania': 'AL',
-        'Global': 'GLOBAL'
+        'UK': 'gb', 'Germany': 'de', 'Spain': 'es',
+        'Italy': 'it', 'Greece': 'gr', 'Ireland': 'ie',
+        'Netherlands': 'nl', 'Portugal': 'pt', 'Romania': 'ro',
+        'France': 'fr', 'Sweden': 'se', 'Finland': 'fi',
+        'Norway': 'no', 'Denmark': 'dk', 'Estonia': 'ee',
+        'Lithuania': 'lt', 'Latvia': 'lv', 'Australia': 'au',
+        'Brazil': 'br', 'Croatia': 'hr', 'India': 'in',
+        'Argentina': 'ar', 'Singapore': 'sg', 'Thailand': 'th',
+        'Indonesia': 'id', 'Malaysia': 'my', 'Taiwan': 'tw',
+        'Canada': 'ca', 'Japan': 'jp', 'USA': 'us',
+        'Belgium': 'be', 'Austria': 'at', 'Switzerland': 'ch',
+        'Poland': 'pl', 'Czech Republic': 'cz', 'Hungary': 'hu',
+        'South Africa': 'za', 'Qatar': 'qa', 'Albania': 'al',
+        'Global': 'global'
     };
 
-    // Build flag emoji from ISO code using Unicode regional indicator symbols
-    function isoToFlag(iso) {
-        if (iso === 'GLOBAL') return '🌐';
-        return iso.split('').map(function (c) {
-            return String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65);
-        }).join('');
-    }
-
+    // --- Render country flags as <img> from flagcdn.com ---
     function flagsHTML(marketsStr) {
         if (!marketsStr) return '';
         var markets = marketsStr.split(',');
@@ -58,8 +51,8 @@
             var name = m.trim();
             var iso = COUNTRY_ISO[name];
             if (!iso) return '<span class="flag-wrap" title="' + esc(name) + '">' + esc(name) + '</span>';
-            var flag = isoToFlag(iso);
-            return '<span class="flag-wrap"><span class="flag-tip">' + esc(name) + '</span>' + flag + '</span>';
+            if (iso === 'global') return '<span class="flag-wrap"><span class="flag-tip">' + esc(name) + '</span><img class="flag-img" src="https://img.icons8.com/emoji/32/globe-showing-americas.png" alt="Global"></span>';
+            return '<span class="flag-wrap"><span class="flag-tip">' + esc(name) + '</span><img class="flag-img" src="https://flagcdn.com/w40/' + iso + '.png" alt="' + esc(name) + '"></span>';
         }).join('');
     }
 

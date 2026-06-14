@@ -318,6 +318,7 @@ body {
     border: 4px solid transparent; border-top-color: var(--navy);
 }
 .flag-wrap:hover .flag-tip { display: block; }
+.flag-img { height: 16px; width: auto; vertical-align: middle; border-radius: 2px; }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
