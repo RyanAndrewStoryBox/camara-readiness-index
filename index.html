@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMARA Readiness Index | Network API Provider Scores</title>
+    <meta name="description" content="Score and compare telecom network API providers in the CAMARA and Open Gateway space. 7-category readiness scores based on public evidence.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="container nav-inner">
+        <a href="/" class="nav-logo">CAMARA Readiness Index <span class="beta-pill">Beta</span></a>
+        <div class="nav-links">
+            <a href="/methodology.html">Methodology</a>
+            <a href="/about.html">About</a>
+            <a href="/feedback.html">Feedback</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="container">
+        <h1>CAMARA Readiness Index <span class="beta-pill beta-pill-lg">Beta</span></h1>
+        <p class="hero-sub">Which telecom network API providers are ready for real-world use? We scored them so you can compare.</p>
+        <p class="hero-body">We assess operators, aggregators, and exchange layers across 7 categories, from documentation and sandbox access to commercial clarity and production signals. Every score comes from public evidence. No opinion. No pay-to-play.</p>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="leaderboard-section">
+        <div class="leaderboard-header">
+            <h2>Provider scores</h2>
+            <p class="leaderboard-note">Each provider is scored on 7 categories using a rubric applied to public developer surfaces. Filter by tier, readiness level, or market.</p>
+        </div>
+
+        <div class="filters">
+            <select id="filter-tier" class="filter-select">
+                <option value="">All tiers</option>
+                <option value="A">Tier A: Global operator groups</option>
+                <option value="B">Tier B: Single-market operators</option>
+                <option value="C">Tier C: API aggregators</option>
+                <option value="D">Tier D: Exchange / federation</option>
+            </select>
+            <select id="filter-label" class="filter-select">
+                <option value="">All readiness levels</option>
+                <option value="High readiness">High readiness</option>
+                <option value="Moderate readiness">Moderate readiness</option>
+                <option value="Early-stage">Early-stage</option>
+                <option value="Minimal">Minimal</option>
+                <option value="Unclear">Unclear</option>
+            </select>
+            <select id="filter-market" class="filter-select">
+                <option value="">All markets</option>
+            </select>
+        </div>
+
+        <div id="leaderboard" class="leaderboard">
+            <div class="loading">Loading providers...</div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How it works</h2>
+        <div class="three-col">
+            <div class="col">
+                <div class="col-number">7</div>
+                <h3>Scoring categories</h3>
+                <p>Documentation, developer access, API scope, commercial clarity, standards alignment, production readiness, geographic coverage. Each scored 0 to 5.</p>
+            </div>
+            <div class="col">
+                <div class="col-number">&check;</div>
+                <h3>Public evidence only</h3>
+                <p>We score what we can see: developer portals, sandbox sign-ups, API docs, pricing pages. No inferences from reputation or private briefings.</p>
+            </div>
+            <div class="col">
+                <div class="col-number">&circlearrowright;</div>
+                <h3>Dated and refreshed</h3>
+                <p>Every assessment carries a review date. When a provider's public surface changes, we re-score. You always know how fresh the data is.</p>
+            </div>
+        </div>
+        <div class="cta-row">
+            <a href="/methodology.html" class="btn btn-secondary">Read the methodology</a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <div class="footer-left">
+            <span class="footer-brand">CAMARA Readiness Index <span class="beta-pill beta-pill-sm">Beta</span></span>
+            <p class="footer-disclaimer">Scores reflect public evidence assessed on the dates shown. Not investment advice. Not a guarantee of service quality.</p>
+        </div>
+        <div class="footer-links">
+            <a href="/methodology.html">Methodology</a>
+            <a href="/about.html">About</a>
+            <a href="/feedback.html">Feedback</a>
+        </div>
+    </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | CAMARA Readiness Index</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="container nav-inner">
+        <a href="/" class="nav-logo">CAMARA Readiness Index <span class="beta-pill">Beta</span></a>
+        <div class="nav-links">
+            <a href="/methodology.html">Methodology</a>
+            <a href="/about.html">About</a>
+            <a href="/feedback.html">Feedback</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container feedback-section">
+
+    <h1>Share your feedback</h1>
+    <p class="lead">The Readiness Index is in beta. If you spot an error in a score, want to suggest a provider for assessment, or have ideas for improving the index, tell us here. Submissions go straight to our review queue.</p>
+
+    <form name="feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <p style="display:none">
+            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+
+        <div class="form-group">
+            <label for="feedback-type">What's this about?</label>
+            <select id="feedback-type" name="type" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="score-correction">Score correction or dispute</option>
+                <option value="new-provider">Suggest a provider for assessment</option>
+                <option value="data-update">A provider's public surface has changed</option>
+                <option value="methodology">Methodology feedback</option>
+                <option value="feature">Feature suggestion</option>
+                <option value="general">General feedback</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-name">Your name (optional)</label>
+            <input type="text" id="feedback-name" name="name" placeholder="Jane Smith">
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-email">Your email (optional)</label>
+            <input type="email" id="feedback-email" name="email" placeholder="jane@example.com">
+            <p class="form-hint">Only needed if you want a response.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-provider">Provider name (if applicable)</label>
+            <input type="text" id="feedback-provider" name="provider" placeholder="e.g. Vonage, Orange, Telefonica">
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-message">Your feedback</label>
+            <textarea id="feedback-message" name="message" required placeholder="Tell us what you've found, what you'd change, or what you'd like to see."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-evidence">Evidence URL (optional)</label>
+            <input type="url" id="feedback-evidence" name="evidence_url" placeholder="https://developer.example.com/docs">
+            <p class="form-hint">Link to documentation, portal, or other public evidence supporting your feedback.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top:0.5rem">Submit feedback</button>
+    </form>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <div class="footer-left">
+            <span class="footer-brand">CAMARA Readiness Index <span class="beta-pill beta-pill-sm">Beta</span></span>
+            <p class="footer-disclaimer">Scores reflect public evidence assessed on the dates shown. Not investment advice. Not a guarantee of service quality.</p>
+        </div>
+        <div class="footer-links">
+            <a href="/methodology.html">Methodology</a>
+            <a href="/about.html">About</a>
+            <a href="/feedback.html">Feedback</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

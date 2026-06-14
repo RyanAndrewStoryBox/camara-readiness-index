@@ -1,0 +1,3 @@
+[build]
+  publish = "."
+  command = "sed -i \"s/NETLIFY_INJECT_TOKEN/$AIRTABLE_API_TOKEN/g\" config.js"

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology | CAMARA Readiness Index</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="container nav-inner">
+        <a href="/" class="nav-logo">CAMARA Readiness Index <span class="beta-pill">Beta</span></a>
+        <div class="nav-links">
+            <a href="/methodology.html">Methodology</a>
+            <a href="/about.html">About</a>
+            <a href="/feedback.html">Feedback</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container content-page">
+
+    <h1>How we score providers</h1>
+
+    <p>The CAMARA Readiness Index scores the public-facing API proposition of providers in the CAMARA and Open Gateway space. We assess what a developer or buyer would see if they visited a provider's portal today: the documentation, the sandbox, the onboarding flow, the pricing page, the listed APIs.</p>
+
+    <p>We do not score internal engineering, network performance, or capabilities that a provider claims but does not show.</p>
+
+    <h2>The 7 scoring categories</h2>
+
+    <div class="method-categories">
+
+        <div class="method-cat">
+            <div class="method-cat-header">
+                <h3>Documentation quality</h3>
+                <span class="method-weight">20% weight</span>
+            </div>
+            <p>Does structured, developer-grade documentation exist? Can you find API references, authentication guides, and getting-started instructions without contacting a sales team?</p>
+        </div>
+
+        <div class="method-cat">
+            <div class="method-cat-header">
+                <h3>Developer access and onboarding</h3>
+                <span class="method-weight">20% weight</span>
+            </div>
+            <p>Can a developer sign up and make a first API call? Is there a sandbox? How many steps does it take, and how long before you see a response?</p>
+        </div>
+
+        <div class="method-cat">
+            <div class="method-cat-header">
+                <h3>API scope clarity</h3>
+                <span class="method-weight">15% weight</span>
+            </div>
+            <p>Which APIs are listed? Can you tell which are live, which are sandbox-only, and which are announced but not yet available? Are API names consistent with CAMARA standards?</p>
+        </div>
+
+        <div class="method-cat">
+            <div class="method-cat-header">
+                <h3>Commercial clarity</h3>
+                <span class="method-weight">15% weight</span>
+            </div>
+            <p>Can you see pricing? Is the commercial model explained? Can a developer or procurement team work out what it costs to use the API without requesting a call?</p>
+        </div>
+
+        <div class="method-cat">
+            <div class="method-cat-header">
+                <h3>Standards alignment</h3>
+                <span class="method-weight">10% weight</span>
+            </div>
+            <p>Does the provider reference CAMARA or Open Gateway? Are standard API family names used? Is the provider visibly participating in the standards process?</p>
+        </div>
+
+        <div class="method-cat">
+            <div class="method-cat-header">
+                <h3>Production readiness signals</h3>
+                <span class="method-weight">15% weight</span>
+            </div>
+            <p>Is there evidence of live production use? Case studies, named customers, SLAs, changelogs, or versioned releases?</p>
+        </div>
+
+        <div class="method-cat">
+            <div class="method-cat-header">
+                <h3>Geographic and market clarity</h3>
+                <span class="method-weight">5% weight</span>
+            </div>
+            <p>Is it clear where the APIs work? Does the provider distinguish between live markets and planned rollouts?</p>
+        </div>
+
+    </div>
+
+    <h2>How scores work</h2>
+
+    <p>Each category is scored 0 to 5 using a rubric applied to public evidence. When evidence is missing or too vague, the category is marked "Unknown" and excluded from the weighted average.</p>
+
+    <p>The overall score is a weighted average of all scored categories, displayed as X.X / 5 with a readiness label:</p>
+
+    <div class="score-labels-list">
+        <div class="score-label-item">
+            <span class="score-dot high"></span>
+            <strong>High readiness (4.0 to 5.0)</strong> Strong, visible, developer-ready proposition
+        </div>
+        <div class="score-label-item">
+            <span class="score-dot moderate"></span>
+            <strong>Moderate readiness (3.0 to 3.9)</strong> Credible offer with notable gaps
+        </div>
+        <div class="score-label-item">
+            <span class="score-dot early"></span>
+            <strong>Early-stage (2.0 to 2.9)</strong> Emerging, limited public surface
+        </div>
+        <div class="score-label-item">
+            <span class="score-dot minimal"></span>
+            <strong>Minimal (1.0 to 1.9)</strong> Weak or absent public-facing proposition
+        </div>
+        <div class="score-label-item">
+            <span class="score-dot unclear"></span>
+            <strong>Unclear (0.0 to 0.9, or more than 3 unknowns)</strong> Not enough evidence to assess
+        </div>
+    </div>
+
+    <p>If more than 3 of 7 categories are Unknown, the overall label defaults to "Unclear" regardless of the numeric score.</p>
+
+    <h2>What we don't do</h2>
+
+    <p>We don't infer capability from reputation. A well-known operator with no visible documentation scores the same as an unknown startup with no visible documentation. We don't score internal engineering or network quality. We don't accept payment to influence scores. We don't present opinion as evidence.</p>
+
+    <h2>How we keep scores current</h2>
+
+    <p>Every assessment carries a date. We refresh scores when a provider's public surface changes. Each provider profile shows when it was last assessed, so you can judge for yourself how current the data is.</p>
+
+    <div class="cta-row" style="margin-top:2rem">
+        <a href="/feedback.html" class="btn btn-secondary">Spot an error? Tell us</a>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <div class="footer-left">
+            <span class="footer-brand">CAMARA Readiness Index <span class="beta-pill beta-pill-sm">Beta</span></span>
+            <p class="footer-disclaimer">Scores reflect public evidence assessed on the dates shown. Not investment advice. Not a guarantee of service quality.</p>
+        </div>
+        <div class="footer-links">
+            <a href="/methodology.html">Methodology</a>
+            <a href="/about.html">About</a>
+            <a href="/feedback.html">Feedback</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
