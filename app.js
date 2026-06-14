@@ -58,19 +58,18 @@
 
     // --- Provider logo URLs (from Wikipedia / Wikimedia Commons) ---
     var LOGO_URLS = {
-        'Telefónica': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Telef%C3%B3nica_2021_logo.svg/200px-Telef%C3%B3nica_2021_logo.svg.png',
-        'Deutsche Telekom': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Deutsche_Telekom_2022.svg/200px-Deutsche_Telekom_2022.svg.png',
-        'Orange': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png',
-        'Vodafone': 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Vodafone_2017_logo.svg/200px-Vodafone_2017_logo.svg.png',
-        'BT/EE': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/BT_Group_2022.svg/200px-BT_Group_2022.svg.png',
-        'Nokia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Nokia_2023.svg/200px-Nokia_2023.svg.png',
-        'Nokia NaC': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Nokia_2023.svg/200px-Nokia_2023.svg.png',
-        'Infobip': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Infobip_logo_horizontal_orange.png/200px-Infobip_logo_horizontal_orange.png',
-        'Telia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Telia_Company_logo_2022.svg/200px-Telia_Company_logo_2022.svg.png',
-        'Telstra': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Telstra_logo.svg/200px-Telstra_logo.svg.png',
-        'Proximus': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Proximus_logo1.png/200px-Proximus_logo1.png',
-        'Proximus / Konera': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Proximus_logo1.png/200px-Proximus_logo1.png',
-        'Bridge Alliance': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Bridge_Alliance_logo.svg/200px-Bridge_Alliance_logo.svg.png'
+        'Vonage': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Vonage_Logo.svg/250px-Vonage_Logo.svg.png',
+        'Nokia Network as Code': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Nokia_2023.svg/250px-Nokia_2023.svg.png',
+        'Orange (Orange LiveNet)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/250px-Orange_logo.svg.png',
+        'Telefónica Open Gateway': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Telef%C3%B3nica_2021_logo.svg/250px-Telef%C3%B3nica_2021_logo.svg.png',
+        'Vodafone': 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Vodafone_2017_logo.svg/250px-Vodafone_2017_logo.svg.png',
+        'Infobip': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Infobip_logo_horizontal_orange.png/250px-Infobip_logo_horizontal_orange.png',
+        'BT/EE': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/BT_Group_2022.svg/250px-BT_Group_2022.svg.png',
+        'Telstra': 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Telstra_logo.svg/250px-Telstra_logo.svg.png',
+        'Proximus Global / Konera': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Proximus_logo1.png/250px-Proximus_logo1.png',
+        'Bridge Alliance Exchange (BAEx)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Bridge_Alliance_logo.svg/250px-Bridge_Alliance_logo.svg.png',
+        'Telia Company': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Telia_Company_logo_2022.svg/250px-Telia_Company_logo_2022.svg.png',
+        'KDDI': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/KDDI_Logo.svg/250px-KDDI_Logo.svg.png'
     };
 
     // --- Provider logo HTML ---
