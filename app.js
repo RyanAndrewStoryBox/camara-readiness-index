@@ -56,36 +56,28 @@
         }).join('');
     }
 
-    // --- Provider name to logo domain (for Clearbit) ---
-    var LOGO_DOMAINS = {
-        'Telefónica': 'telefonica.com',
-        'Deutsche Telekom': 'telekom.com',
-        'Orange': 'orange.com',
-        'Vodafone': 'vodafone.com',
-        'BT/EE': 'bt.com',
-        'Nokia': 'nokia.com',
-        'Nokia NaC': 'nokia.com',
-        'Infobip': 'infobip.com',
-        'Telia': 'teliacompany.com',
-        'Telstra': 'telstra.com.au',
-        'Proximus': 'proximus.com',
-        'Konera': 'proximus.com',
-        'Proximus / Konera': 'proximus.com',
-        'OpenXpand': 'openxpand.com',
-        'Bridge Alliance': 'bridgealliance.com',
-        'Ericsson': 'ericsson.com',
-        'Singtel': 'singtel.com',
-        'KPN': 'kpn.com',
-        'Bouygues Telecom': 'bouyguestelecom.fr',
-        'América Móvil': 'americamovil.com',
-        'Axiata': 'axiata.com'
+    // --- Provider logo URLs (from Wikipedia / Wikimedia Commons) ---
+    var LOGO_URLS = {
+        'Telefónica': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Telef%C3%B3nica_2021_logo.svg/200px-Telef%C3%B3nica_2021_logo.svg.png',
+        'Deutsche Telekom': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Deutsche_Telekom_2022.svg/200px-Deutsche_Telekom_2022.svg.png',
+        'Orange': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png',
+        'Vodafone': 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Vodafone_2017_logo.svg/200px-Vodafone_2017_logo.svg.png',
+        'BT/EE': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/BT_Group_2022.svg/200px-BT_Group_2022.svg.png',
+        'Nokia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Nokia_2023.svg/200px-Nokia_2023.svg.png',
+        'Nokia NaC': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Nokia_2023.svg/200px-Nokia_2023.svg.png',
+        'Infobip': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Infobip_logo_horizontal_orange.png/200px-Infobip_logo_horizontal_orange.png',
+        'Telia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Telia_Company_logo_2022.svg/200px-Telia_Company_logo_2022.svg.png',
+        'Telstra': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Telstra_logo.svg/200px-Telstra_logo.svg.png',
+        'Proximus': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Proximus_logo1.png/200px-Proximus_logo1.png',
+        'Proximus / Konera': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Proximus_logo1.png/200px-Proximus_logo1.png',
+        'Bridge Alliance': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Bridge_Alliance_logo.svg/200px-Bridge_Alliance_logo.svg.png'
     };
 
     // --- Provider logo HTML ---
     function logoHTML(providerName) {
-        var domain = LOGO_DOMAINS[providerName];
-        if (!domain) return '<span class="provider-logo-fallback">' + esc((providerName || '?').charAt(0)) + '</span>';
-        return '<img class="provider-logo" src="https://logo.clearbit.com/' + domain + '" alt="' + esc(providerName) + '" onerror="this.outerHTML=\'<span class=provider-logo-fallback>' + esc((providerName || '?').charAt(0)) + '</span>\'">';
+        var url = LOGO_URLS[providerName];
+        if (!url) return '<span class="provider-logo-fallback">' + esc((providerName || '?').charAt(0)) + '</span>';
+        return '<img class="provider-logo" src="' + url + '" alt="' + esc(providerName) + '" onerror="this.outerHTML=\'<span class=provider-logo-fallback>' + esc((providerName || '?').charAt(0)) + '</span>\'">';
     }
 
     function labelColour(label) {
