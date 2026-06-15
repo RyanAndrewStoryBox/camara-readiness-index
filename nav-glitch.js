@@ -98,6 +98,60 @@
 
     document.querySelectorAll('.nav-links a, .footer-links a, .btn').forEach(glitchifyText);
 
+    // Nav logo — glitch only the text node, preserve the beta pill span
+    var navLogo = document.querySelector('.nav-logo');
+    if (navLogo) {
+        var logoTextNode = null;
+        for (var i = 0; i < navLogo.childNodes.length; i++) {
+            if (navLogo.childNodes[i].nodeType === 3 && navLogo.childNodes[i].textContent.trim()) {
+                logoTextNode = navLogo.childNodes[i];
+                break;
+            }
+        }
+        if (logoTextNode) {
+            var logoOriginal = logoTextNode.textContent;
+            var logoAnimating = false;
+            navLogo.addEventListener('mouseenter', function() {
+                if (logoAnimating) return;
+                logoAnimating = true;
+                runGlitch(navLogo, logoOriginal.trim(), {
+                    setText: function(t) { logoTextNode.textContent = t + ' '; },
+                    onDone: function() {
+                        logoTextNode.textContent = logoOriginal;
+                        logoAnimating = false;
+                    }
+                });
+            });
+        }
+    }
+
+    // Footer brand — same treatment
+    var footerBrand = document.querySelector('.footer-brand');
+    if (footerBrand) {
+        var brandTextNode = null;
+        for (var i = 0; i < footerBrand.childNodes.length; i++) {
+            if (footerBrand.childNodes[i].nodeType === 3 && footerBrand.childNodes[i].textContent.trim()) {
+                brandTextNode = footerBrand.childNodes[i];
+                break;
+            }
+        }
+        if (brandTextNode) {
+            var brandOriginal = brandTextNode.textContent;
+            var brandAnimating = false;
+            footerBrand.addEventListener('mouseenter', function() {
+                if (brandAnimating) return;
+                brandAnimating = true;
+                runGlitch(footerBrand, brandOriginal.trim(), {
+                    setText: function(t) { brandTextNode.textContent = t + ' '; },
+                    onDone: function() {
+                        brandTextNode.textContent = brandOriginal;
+                        brandAnimating = false;
+                    }
+                });
+            });
+        }
+    }
+
     // --- Select dropdowns: glitch overlay on value change ---
     document.querySelectorAll('.filter-select').forEach(function(select) {
         // Wrap select in a positioned container if not already
