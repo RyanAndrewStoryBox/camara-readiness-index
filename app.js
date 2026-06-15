@@ -187,7 +187,7 @@
                 var ttfc = f['Time to first API call'] || '';
                 var pUrl = f['Primary URL'] || '';
 
-                return '<a href="provider.html?id=' + p.id + '" class="provider-card">' +
+                return '<a href="provider.html?id=' + p.id + '" class="provider-card" data-label="' + esc(rl) + '">' +
                     '<div class="card-rank">' + (i + 1) + '</div>' +
                     '<div class="card-body">' +
                         '<div class="card-top">' +

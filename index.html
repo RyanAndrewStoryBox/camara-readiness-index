@@ -6,11 +6,11 @@
     <title>CAMARA Readiness Index | Network API Provider Scores</title>
     <meta name="description" content="Score and compare telecom network API providers in the CAMARA and Open Gateway space. 7-category readiness scores based on public evidence.">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<canvas id="blueprint-grid"></canvas>
+<canvas id="hero-canvas"></canvas>
 
 <nav class="nav">
     <div class="container nav-inner">
@@ -24,7 +24,6 @@
 </nav>
 
 <header class="hero" id="hero">
-    <canvas id="hero-canvas"></canvas>
     <div class="container">
         <h1>CAMARA Readiness Index <span class="beta-pill beta-pill-lg">Beta</span></h1>
         <p class="hero-sub">Which telecom network APIs are actually ready to use? This community tool scores network API providers so you can compare.</p>
@@ -63,6 +62,14 @@
 
         <div id="leaderboard" class="leaderboard">
             <div class="loading">Loading providers...</div>
+        </div>
+
+        <div class="tier-legend">
+            <span class="tier-legend-item"><span class="tier-dot high"></span> High readiness</span>
+            <span class="tier-legend-item"><span class="tier-dot moderate"></span> Moderate readiness</span>
+            <span class="tier-legend-item"><span class="tier-dot early"></span> Early-stage</span>
+            <span class="tier-legend-item"><span class="tier-dot minimal"></span> Minimal</span>
+            <span class="tier-legend-item"><span class="tier-dot unclear"></span> Unclear</span>
         </div>
     </section>
 
@@ -117,5 +124,8 @@
 <script src="config.js"></script>
 <script src="app.js"></script>
 <script src="hero-anim.js"></script>
+<script src="blueprint-grid.js"></script>
+<script src="scroll-reveal.js"></script>
+<script src="nav-glitch.js"></script>
 </body>
 </html>

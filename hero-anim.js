@@ -1,4 +1,4 @@
-// Hero radio-wave animation
+// Radio-wave ripple animation — full-page canvas, triggered from hero
 (function() {
     var hero = document.getElementById('hero');
     var canvas = document.getElementById('hero-canvas');
@@ -6,15 +6,25 @@
 
     var ctx = canvas.getContext('2d');
     var W, H, GRID = 40, nodes = [], signals = [], lastSpawn = 0;
+    var scrollY = 0;
+    var heroRect = { top: 0, height: 0 };
+
+    function updateHeroRect() {
+        var r = hero.getBoundingClientRect();
+        heroRect.top = r.top + window.pageYOffset;
+        heroRect.height = r.height;
+    }
 
     function resize() {
-        W = hero.offsetWidth;
-        H = hero.offsetHeight;
+        W = window.innerWidth;
+        H = window.innerHeight;
         canvas.width = W;
         canvas.height = H;
+        updateHeroRect();
+        // Build node grid covering full viewport
         nodes = [];
         var cols = Math.ceil(W / GRID) + 1;
-        var rows = Math.ceil(H / GRID) + 1;
+        var rows = Math.ceil(H / GRID) + 2;
         for (var r = 0; r < rows; r++) {
             for (var c = 0; c < cols; c++) {
                 nodes.push({ x: c * GRID, y: r * GRID, glow: 0 });
@@ -23,17 +33,22 @@
     }
     resize();
     window.addEventListener('resize', resize);
+    window.addEventListener('scroll', function() {
+        scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    }, { passive: true });
 
+    // Mouse interaction — hero area spawns ripples, coordinates mapped to viewport
     hero.addEventListener('mousemove', function(e) {
         var now = Date.now();
         if (now - lastSpawn < 320) return;
         lastSpawn = now;
         var rect = hero.getBoundingClientRect();
+        // Canvas is fixed to viewport, so use clientX/clientY directly
         signals.push({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
+            x: e.clientX,
+            y: e.clientY,
             r: 0,
-            maxR: 220 + Math.random() * 80,
+            maxR: 320 + Math.random() * 120, // larger radius so they bleed past hero
             speed: 1.2 + Math.random() * 0.6,
             freq: 3 + Math.random() * 2,
             phase: Math.random() * Math.PI * 2,
@@ -43,27 +58,52 @@
     });
 
     function ambient() {
-        if (signals.length < 1 && Math.random() < 0.005) {
-            signals.push({
-                x: Math.random() * W,
-                y: Math.random() * H,
-                r: 0,
-                maxR: 160 + Math.random() * 100,
-                speed: 0.6 + Math.random() * 0.4,
-                freq: 3 + Math.random() * 2,
-                phase: Math.random() * Math.PI * 2,
-                arc: (1.3 + Math.random() * 0.5) * Math.PI,
-                angle: Math.random() * Math.PI * 2
-            });
+        // Ambient pulses only in the hero region (mapped to viewport coords)
+        var heroScreenTop = heroRect.top - scrollY;
+        var heroScreenBot = heroScreenTop + heroRect.height;
+        if (signals.length < 2 && Math.random() < 0.006) {
+            var ay = heroScreenTop + Math.random() * heroRect.height;
+            // Only spawn if hero is at least partially visible
+            if (ay > -100 && ay < H + 100) {
+                signals.push({
+                    x: Math.random() * W,
+                    y: ay,
+                    r: 0,
+                    maxR: 200 + Math.random() * 140,
+                    speed: 0.6 + Math.random() * 0.4,
+                    freq: 3 + Math.random() * 2,
+                    phase: Math.random() * Math.PI * 2,
+                    arc: (1.3 + Math.random() * 0.5) * Math.PI,
+                    angle: Math.random() * Math.PI * 2
+                });
+            }
         }
     }
 
     function draw() {
         ctx.clearRect(0, 0, W, H);
 
+        // Parallax offset for nodes — grid scrolls slower
+        var offset = scrollY * 0.3;
+        var nodeOffsetY = -(offset % GRID);
+
         // Decay node glow
         for (var i = 0; i < nodes.length; i++) {
             nodes[i].glow *= 0.94;
+        }
+
+        // Reposition nodes with parallax
+        var cols = Math.ceil(W / GRID) + 1;
+        var rows = Math.ceil(H / GRID) + 2;
+        var idx = 0;
+        for (var r = 0; r < rows; r++) {
+            for (var c = 0; c < cols; c++) {
+                if (idx < nodes.length) {
+                    nodes[idx].x = c * GRID;
+                    nodes[idx].y = nodeOffsetY + r * GRID;
+                    idx++;
+                }
+            }
         }
 
         // Check which nodes are hit by passing waves
@@ -75,7 +115,7 @@
                 var dy = n.y - s.y;
                 var dist = Math.sqrt(dx * dx + dy * dy);
                 var ringDist = Math.abs(dist - s.r);
-                if (ringDist < 12) {
+                if (ringDist < 14) {
                     var a = Math.atan2(dy, dx);
                     var startA = s.angle - s.arc / 2;
                     var endA = s.angle + s.arc / 2;
@@ -84,24 +124,14 @@
                     if (na <= range) {
                         var life = s.r / s.maxR;
                         var fade = Math.pow(1 - life, 1.5);
-                        var proximity = 1 - ringDist / 12;
+                        var proximity = 1 - ringDist / 14;
                         n.glow = Math.min(0.6, n.glow + fade * proximity * 0.35);
                     }
                 }
             }
         }
 
-        // Draw grid lines
-        ctx.strokeStyle = 'rgba(14,165,233,0.08)';
-        ctx.lineWidth = 0.5;
-        for (var x = 0; x <= W; x += GRID) {
-            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-        }
-        for (var y = 0; y <= H; y += GRID) {
-            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-        }
-
-        // Draw glowing nodes
+        // Draw glowing nodes (no grid lines — blueprint-grid.js handles those)
         for (var i = 0; i < nodes.length; i++) {
             var n = nodes[i];
             if (n.glow > 0.02) {
@@ -149,4 +179,17 @@
         requestAnimationFrame(draw);
     }
     draw();
+
+    // --- Hero content parallax ---
+    var heroContent = hero.querySelector('.container');
+    if (heroContent) {
+        window.addEventListener('scroll', function() {
+            var sy = window.pageYOffset || document.documentElement.scrollTop;
+            // Hero text scrolls at 1.4x (moves up faster than page), creating depth
+            var translate = sy * 0.4;
+            var opacity = Math.max(0, 1 - sy / (heroRect.height * 0.8));
+            heroContent.style.transform = 'translateY(-' + translate + 'px)';
+            heroContent.style.opacity = opacity;
+        }, { passive: true });
+    }
 })();
