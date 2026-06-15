@@ -1,4 +1,4 @@
-// CAMARA Readiness Index — Main application v2
+// Network API Readiness Index — Main application v2
 // Fetches data from Airtable and renders the leaderboard + provider profiles
 
 (function () {
@@ -71,7 +71,10 @@
         'Telia Company': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Telia_Company_logo_2022.svg/250px-Telia_Company_logo_2022.svg.png',
         'KDDI': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/KDDI_Logo.svg/250px-KDDI_Logo.svg.png',
         'Aduna': 'logos/logo-Aduna-black.png',
-        'OpenXpand': 'logos/logo-openexpand-black.png'
+        'OpenXpand': 'logos/logo-openexpand-black.png',
+        'T-Mobile US (DevEdge)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/T-Mobile_US_Logo_2022.svg/250px-T-Mobile_US_Logo_2022.svg.png',
+        'AT&T': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/AT%26T_logo_2016.svg/250px-AT%26T_logo_2016.svg.png',
+        'Verizon': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Verizon_2015_logo_-vector.svg/250px-Verizon_2015_logo_-vector.svg.png'
     };
 
     // --- Provider logo HTML ---
@@ -101,6 +104,27 @@
         return String(m);
     }
 
+    // --- Country-to-region mapping ---
+    var COUNTRY_REGION = {
+        'Global': 'Global',
+        'UK': 'Europe', 'Germany': 'Europe', 'Spain': 'Europe', 'Italy': 'Europe',
+        'France': 'Europe', 'Netherlands': 'Europe', 'Belgium': 'Europe',
+        'Austria': 'Europe', 'Switzerland': 'Europe', 'Ireland': 'Europe',
+        'Portugal': 'Europe', 'Greece': 'Europe', 'Romania': 'Europe',
+        'Croatia': 'Europe', 'Poland': 'Europe', 'Czech Republic': 'Europe',
+        'Hungary': 'Europe', 'Albania': 'Europe',
+        'Sweden': 'Europe', 'Finland': 'Europe', 'Norway': 'Europe',
+        'Denmark': 'Europe', 'Estonia': 'Europe', 'Lithuania': 'Europe', 'Latvia': 'Europe',
+        'USA': 'North America', 'Canada': 'North America',
+        'Brazil': 'Latin America', 'Argentina': 'Latin America',
+        'Japan': 'Asia-Pacific', 'Australia': 'Asia-Pacific', 'India': 'Asia-Pacific',
+        'Singapore': 'Asia-Pacific', 'Thailand': 'Asia-Pacific',
+        'Indonesia': 'Asia-Pacific', 'Malaysia': 'Asia-Pacific', 'Taiwan': 'Asia-Pacific',
+        'South Africa': 'Middle East & Africa', 'Qatar': 'Middle East & Africa'
+    };
+
+    var REGION_ORDER = ['Global', 'Europe', 'North America', 'Latin America', 'Asia-Pacific', 'Middle East & Africa'];
+
     // --- Extract unique markets from all providers ---
     function extractMarkets(providers) {
         var marketSet = {};
@@ -114,17 +138,64 @@
         return Object.keys(marketSet).sort();
     }
 
-    // --- Populate the market filter dropdown ---
+    // --- Populate the market filter dropdown with regional optgroups ---
     function populateMarketFilter(providers) {
         var select = document.getElementById('filter-market');
         if (!select) return;
         var markets = extractMarkets(providers);
+
+        // Group markets by region
+        var regionBuckets = {};
+        REGION_ORDER.forEach(function (r) { regionBuckets[r] = []; });
+        var uncategorised = [];
+
         markets.forEach(function (m) {
-            var opt = document.createElement('option');
-            opt.value = m;
-            opt.textContent = m;
-            select.appendChild(opt);
+            var region = COUNTRY_REGION[m];
+            if (region && regionBuckets[region]) {
+                regionBuckets[region].push(m);
+            } else {
+                uncategorised.push(m);
+            }
         });
+
+        REGION_ORDER.forEach(function (region) {
+            var countries = regionBuckets[region];
+            if (countries.length === 0) return;
+
+            // For "Global", add as a plain option (not inside an optgroup)
+            if (region === 'Global') {
+                countries.forEach(function (m) {
+                    var opt = document.createElement('option');
+                    opt.value = m;
+                    opt.textContent = m;
+                    select.appendChild(opt);
+                });
+                return;
+            }
+
+            var group = document.createElement('optgroup');
+            group.label = region;
+            countries.forEach(function (m) {
+                var opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                group.appendChild(opt);
+            });
+            select.appendChild(group);
+        });
+
+        // Any unmapped markets go at the end
+        if (uncategorised.length > 0) {
+            var otherGroup = document.createElement('optgroup');
+            otherGroup.label = 'Other';
+            uncategorised.forEach(function (m) {
+                var opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                otherGroup.appendChild(opt);
+            });
+            select.appendChild(otherGroup);
+        }
     }
 
     // --- Check if provider matches market filter ---
@@ -255,7 +326,7 @@
         var urlDisplay = url ? url.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
         var markets = getMarkets(f);
 
-        document.title = (f['Provider name'] || 'Provider') + ' — CAMARA Readiness Index';
+        document.title = (f['Provider name'] || 'Provider') + ' — Network API Readiness Index';
 
         container.innerHTML =
         '<div class="profile-header">' +
