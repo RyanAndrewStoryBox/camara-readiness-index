@@ -154,6 +154,9 @@ body {
 .provider-logo {
     display: block; max-height: 100%; max-width: 100%; object-fit: contain;
 }
+.provider-logo[alt="Proximus Global / Konera"] {
+    transform: scale(1.45);
+}
 .provider-logo-fallback {
     display: flex; align-items: center; justify-content: center;
     width: 100%; height: 100%; font-weight: 700; font-size: 0.75rem;
