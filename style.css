@@ -1,4 +1,4 @@
-/* CAMARA Readiness Index v3 — Dark Blueprint Theme */
+/* Network API Readiness Index v3 — Dark Blueprint Theme */
 
 /* --- Font faces --- */
 @font-face {
@@ -185,6 +185,7 @@ body {
     transition: border-color .15s, box-shadow .15s;
 }
 .filter-select option { background: var(--bg-surface); color: var(--text); }
+.filter-select option.option-region { font-weight: 700; color: var(--teal); letter-spacing: 0.03em; }
 .filter-select:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px var(--teal-dim); }
 
 /* Leaderboard cards */

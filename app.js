@@ -138,17 +138,11 @@
         return Object.keys(marketSet).sort();
     }
 
-    // --- Populate the market filter dropdown with regional optgroups ---
-    function populateMarketFilter(providers) {
-        var select = document.getElementById('filter-market');
-        if (!select) return;
-        var markets = extractMarkets(providers);
-
-        // Group markets by region
+    // --- Build reverse lookup: region → list of countries present in data ---
+    function buildRegionCountries(markets) {
         var regionBuckets = {};
         REGION_ORDER.forEach(function (r) { regionBuckets[r] = []; });
         var uncategorised = [];
-
         markets.forEach(function (m) {
             var region = COUNTRY_REGION[m];
             if (region && regionBuckets[region]) {
@@ -157,12 +151,21 @@
                 uncategorised.push(m);
             }
         });
+        return { buckets: regionBuckets, other: uncategorised };
+    }
+
+    // --- Populate the market filter dropdown with selectable regions + countries ---
+    function populateMarketFilter(providers) {
+        var select = document.getElementById('filter-market');
+        if (!select) return;
+        var markets = extractMarkets(providers);
+        var grouped = buildRegionCountries(markets);
 
         REGION_ORDER.forEach(function (region) {
-            var countries = regionBuckets[region];
+            var countries = grouped.buckets[region];
             if (countries.length === 0) return;
 
-            // For "Global", add as a plain option (not inside an optgroup)
+            // "Global" is just a plain option, no region header needed
             if (region === 'Global') {
                 countries.forEach(function (m) {
                     var opt = document.createElement('option');
@@ -173,36 +176,54 @@
                 return;
             }
 
-            var group = document.createElement('optgroup');
-            group.label = region;
+            // Region header — selectable, value prefixed with "region:"
+            var regionOpt = document.createElement('option');
+            regionOpt.value = 'region:' + region;
+            regionOpt.textContent = '── ' + region + ' ──';
+            regionOpt.className = 'option-region';
+            select.appendChild(regionOpt);
+
+            // Country options — indented
             countries.forEach(function (m) {
                 var opt = document.createElement('option');
                 opt.value = m;
-                opt.textContent = m;
-                group.appendChild(opt);
+                opt.textContent = '    ' + m;
+                select.appendChild(opt);
             });
-            select.appendChild(group);
         });
 
-        // Any unmapped markets go at the end
-        if (uncategorised.length > 0) {
-            var otherGroup = document.createElement('optgroup');
-            otherGroup.label = 'Other';
-            uncategorised.forEach(function (m) {
+        // Any unmapped markets at the end
+        if (grouped.other.length > 0) {
+            var otherOpt = document.createElement('option');
+            otherOpt.value = 'region:Other';
+            otherOpt.textContent = '── Other ──';
+            otherOpt.className = 'option-region';
+            select.appendChild(otherOpt);
+
+            grouped.other.forEach(function (m) {
                 var opt = document.createElement('option');
                 opt.value = m;
-                opt.textContent = m;
-                otherGroup.appendChild(opt);
+                opt.textContent = '    ' + m;
+                select.appendChild(opt);
             });
-            select.appendChild(otherGroup);
         }
     }
 
-    // --- Check if provider matches market filter ---
+    // --- Check if provider matches market filter (supports region: prefix) ---
     function matchesMarket(provider, market) {
         if (!market) return true;
-        var markets = getMarkets(provider.fields).split(',').map(function (m) { return m.trim(); });
-        return markets.indexOf(market) !== -1;
+        var providerMarkets = getMarkets(provider.fields).split(',').map(function (m) { return m.trim(); });
+
+        // Region-level filter: match any country in that region
+        if (market.indexOf('region:') === 0) {
+            var region = market.replace('region:', '');
+            return providerMarkets.some(function (m) {
+                return COUNTRY_REGION[m] === region;
+            });
+        }
+
+        // Country-level filter
+        return providerMarkets.indexOf(market) !== -1;
     }
 
     // --- HTML escape ---
