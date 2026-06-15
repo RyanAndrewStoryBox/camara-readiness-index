@@ -154,8 +154,9 @@ body {
     letter-spacing: -0.01em; margin-bottom: 1rem; color: #fff;
 }
 .hero-sub {
-    font-size: 1.15rem; color: #94a3b8; max-width: 620px;
-    margin-bottom: 0.85rem; line-height: 1.55;
+    font-family: 'D-DIN', sans-serif; font-size: 1.2rem; font-weight: 700;
+    color: #e2e8f0; max-width: 620px;
+    margin-bottom: 0.85rem; line-height: 1.55; letter-spacing: 0.01em;
 }
 .hero-body {
     font-size: 0.92rem; color: var(--text-dim); max-width: 620px; line-height: 1.75;
