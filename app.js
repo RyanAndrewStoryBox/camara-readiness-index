@@ -69,7 +69,9 @@
         'Proximus Global / Konera': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Proximus_logo1.png/250px-Proximus_logo1.png',
         'Bridge Alliance Exchange (BAEx)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Bridge_Alliance_logo.svg/250px-Bridge_Alliance_logo.svg.png',
         'Telia Company': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Telia_Company_logo_2022.svg/250px-Telia_Company_logo_2022.svg.png',
-        'KDDI': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/KDDI_Logo.svg/250px-KDDI_Logo.svg.png'
+        'KDDI': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/KDDI_Logo.svg/250px-KDDI_Logo.svg.png',
+        'Aduna': 'logos/logo-Aduna-black.png',
+        'OpenXpand': 'logos/logo-openexpand-black.png'
     };
 
     // --- Provider logo HTML ---
