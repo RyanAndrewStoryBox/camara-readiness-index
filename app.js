@@ -72,7 +72,7 @@
         'KDDI': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/KDDI_Logo.svg/250px-KDDI_Logo.svg.png',
         'Aduna': 'logos/logo-Aduna-black.png',
         'OpenXpand': 'logos/logo-openexpand-black.png',
-        'T-Mobile US (DevEdge)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/T-Mobile_US_Logo_2022.svg/250px-T-Mobile_US_Logo_2022.svg.png',
+        'T-Mobile US (DevEdge)': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/T-Mobile_logo.svg/250px-T-Mobile_logo.svg.png',
         'AT&T': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/AT%26T_logo_2016.svg/250px-AT%26T_logo_2016.svg.png',
         'Verizon': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Verizon_2015_logo_-vector.svg/250px-Verizon_2015_logo_-vector.svg.png'
     };
