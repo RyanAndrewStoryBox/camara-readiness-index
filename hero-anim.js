@@ -40,20 +40,29 @@
     // Mouse interaction — hero area spawns ripples, coordinates mapped to viewport
     hero.addEventListener('mousemove', function(e) {
         var now = Date.now();
-        if (now - lastSpawn < 500) return;
+        if (now - lastSpawn < 420) return;
         lastSpawn = now;
         var rect = hero.getBoundingClientRect();
-        // Canvas is fixed to viewport, so use clientX/clientY directly
+        // Use mouse movement direction; fall back to random if stationary
+        var mx = e.movementX || 0, my = e.movementY || 0;
+        var hasMovement = Math.abs(mx) + Math.abs(my) > 1;
+        var dir = hasMovement
+            ? Math.atan2(my, mx)
+            : Math.random() * Math.PI * 2;
+        // Tighter arc when moving (directional beam), wider when stationary
+        var arcWidth = hasMovement
+            ? (0.6 + Math.random() * 0.3) * Math.PI   // 108-162° cone
+            : (1.0 + Math.random() * 0.4) * Math.PI;  // 180-252° spread
         signals.push({
             x: e.clientX,
             y: e.clientY,
             r: 0,
             maxR: 320 + Math.random() * 120,
-            speed: 0.5 + Math.random() * 0.3,
+            speed: 0.6 + Math.random() * 0.3,
             freq: 3 + Math.random() * 2,
             phase: Math.random() * Math.PI * 2,
-            arc: (1.2 + Math.random() * 0.6) * Math.PI,
-            angle: Math.atan2(e.movementY || 0, e.movementX || 0) + Math.PI
+            arc: arcWidth,
+            angle: dir
         });
     });
 
