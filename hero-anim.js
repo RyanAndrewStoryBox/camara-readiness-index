@@ -40,7 +40,7 @@
     // Mouse interaction — hero area spawns ripples, coordinates mapped to viewport
     hero.addEventListener('mousemove', function(e) {
         var now = Date.now();
-        if (now - lastSpawn < 320) return;
+        if (now - lastSpawn < 500) return;
         lastSpawn = now;
         var rect = hero.getBoundingClientRect();
         // Canvas is fixed to viewport, so use clientX/clientY directly
@@ -48,8 +48,8 @@
             x: e.clientX,
             y: e.clientY,
             r: 0,
-            maxR: 320 + Math.random() * 120, // larger radius so they bleed past hero
-            speed: 1.2 + Math.random() * 0.6,
+            maxR: 320 + Math.random() * 120,
+            speed: 0.5 + Math.random() * 0.3,
             freq: 3 + Math.random() * 2,
             phase: Math.random() * Math.PI * 2,
             arc: (1.2 + Math.random() * 0.6) * Math.PI,
@@ -61,7 +61,7 @@
         // Ambient pulses only in the hero region (mapped to viewport coords)
         var heroScreenTop = heroRect.top - scrollY;
         var heroScreenBot = heroScreenTop + heroRect.height;
-        if (signals.length < 2 && Math.random() < 0.006) {
+        if (signals.length < 2 && Math.random() < 0.003) {
             var ay = heroScreenTop + Math.random() * heroRect.height;
             // Only spawn if hero is at least partially visible
             if (ay > -100 && ay < H + 100) {
@@ -70,7 +70,7 @@
                     y: ay,
                     r: 0,
                     maxR: 200 + Math.random() * 140,
-                    speed: 0.6 + Math.random() * 0.4,
+                    speed: 0.35 + Math.random() * 0.25,
                     freq: 3 + Math.random() * 2,
                     phase: Math.random() * Math.PI * 2,
                     arc: (1.3 + Math.random() * 0.5) * Math.PI,
